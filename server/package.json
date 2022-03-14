@@ -11,6 +11,8 @@
     "@types/nodemailer": "^6.4.4",
     "cors": "^2.8.5",
     "express": "^4.17.3",
+    "express-async-errors": "^3.1.1",
+    "express-validator": "^6.14.0",
     "install": "^0.13.0",
     "nodemailer": "^6.7.2",
     "npm": "^8.5.4",
