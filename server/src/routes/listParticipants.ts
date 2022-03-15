@@ -1,18 +1,16 @@
 import express, { Request, Response } from "express";
 import { requireAuth } from "../middlewares/require-auth";
-import { Interview } from "../models/Interview";
+import { Participant } from "../models/Participant";
 
 const router = express.Router();
 
 router.get(
-  "/api/interviews",
+  "/api/participants",
   requireAuth,
   async (req: Request, res: Response) => {
-    const interviews = await Interview.find({
-      hostId: req.currentUser!.id,
-    });
-    res.send(interviews);
+    const participants = await Participant.find().populate("interviews");
+    res.send(participants);
   }
 );
 
-export { router as indexRouter };
+export { router as listParticipantsRouter };

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Password } from "../utils/password";
+import { InterviewDoc } from "./Interview";
 
 //TODO: add resume file upload
 interface ParticipantAttrs {
@@ -14,7 +14,7 @@ interface ParticipantModel extends mongoose.Model<ParticipantDoc> {
 interface ParticipantDoc extends mongoose.Document {
   name: string;
   email: string;
-  interviews: string[];
+  interviews: InterviewDoc[];
 }
 
 const participantSchema = new mongoose.Schema(
