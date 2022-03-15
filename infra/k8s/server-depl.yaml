@@ -15,14 +15,14 @@ spec:
       containers:
         - name: server
           image: holdmypotion/icp-server
-          # env:
-          #   - name: MONGO_URI
-          #     value: 'mongodb://server-mongo-srv:27017/server'
-          #   - name: JWT_KEY
-          #     valueFrom:
-          #       secretKeyRef:
-          #         name: jwt-secret
-          #         key: JWT_KEY
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://server-mongo-srv:27017/server'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service
