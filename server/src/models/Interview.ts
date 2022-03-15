@@ -7,7 +7,7 @@ interface InterviewAttrs {
   participants: string[];
 }
 
-interface InterviewDoc extends mongoose.Document {
+export interface InterviewDoc extends mongoose.Document {
   hostId: string;
   startTime: string;
   endTime: string;
@@ -25,11 +25,11 @@ const interviewSchema = new mongoose.Schema(
       required: true,
     },
     startTime: {
-      type: Date,
+      type: mongoose.Schema.Types.Date,
       required: true,
     },
     endTime: {
-      type: Date,
+      type: mongoose.Schema.Types.Date,
       required: true,
     },
     participants: [

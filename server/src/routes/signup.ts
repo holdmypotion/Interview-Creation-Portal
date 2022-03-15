@@ -11,6 +11,7 @@ const router = express.Router();
 router.post(
   "/api/signup",
   [
+    body("name").not().isEmpty().withMessage("Name must not be empty"),
     body("email").isEmail().withMessage("Email must be valid"),
     body("password")
       .trim()

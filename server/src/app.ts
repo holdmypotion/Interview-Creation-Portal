@@ -12,6 +12,7 @@ import { NotFoundError } from "./errors/not-found-error";
 import { addParticipantRouter } from "./routes/newParticipants";
 import { signupRouter } from "./routes/signup";
 import { currentUser } from "./middlewares/current-user";
+import { listParticipantsRouter } from "./routes/listParticipants";
 
 const app = express();
 app.set("trust proxy", true);
@@ -33,6 +34,7 @@ app.use(signinRouter);
 app.use(createRouter);
 app.use(updateRouter);
 app.use(addParticipantRouter);
+app.use(listParticipantsRouter);
 
 app.all("*", async () => {
   throw new NotFoundError();
