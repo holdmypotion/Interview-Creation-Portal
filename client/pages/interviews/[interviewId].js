@@ -54,7 +54,7 @@ const InterviewShow = ({ interview, participantsList }) => {
       <tr key={participant.email}>
         <th>
           <input
-            class="form-check-input"
+            className="form-check-input"
             type="checkbox"
             value=""
             id="flexCheckDefault"
@@ -67,18 +67,12 @@ const InterviewShow = ({ interview, participantsList }) => {
         <td>
           {participant.interviews &&
             participant.interviews.map(interview => {
-              let formattedStartTime = new Date(interview.startTime);
-              formattedStartTime.setMinutes(
-                formattedStartTime.getMinutes() + 30
-              );
-              formattedStartTime.setMinutes(0, 0, 0);
-              formattedStartTime = formattedStartTime
+              const formattedStartTime = new Date(interview.startTime)
                 .toString()
                 .substring(0, 21);
-              let formattedEndTime = new Date(interview.endTime);
-              formattedEndTime.setMinutes(formattedEndTime.getMinutes() + 30);
-              formattedEndTime.setMinutes(0, 0, 0);
-              formattedEndTime = formattedEndTime.toString().substring(0, 21);
+              const formattedEndTime = new Date(interview.endTime)
+                .toString()
+                .substring(0, 21);
               return (
                 <div key={interview.startTime}>
                   {formattedStartTime} - {formattedEndTime}
@@ -96,10 +90,10 @@ const InterviewShow = ({ interview, participantsList }) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <div class="d-flex justify-content-center py-3">
+      <div className="d-flex justify-content-center py-3">
         <h1>Update Interview</h1>
       </div>
-      <div class="d-flex justify-content-center pt-3">
+      <div className="d-flex justify-content-center pt-3">
         <h5>Interviewees List</h5>
       </div>
       <table className="table">
@@ -113,7 +107,7 @@ const InterviewShow = ({ interview, participantsList }) => {
         </thead>
         <tbody>{participantsJSX}</tbody>
       </table>
-      <div class="d-flex justify-content-center">
+      <div className="d-flex justify-content-center">
         <Link href="/participant" as="/participant">
           <a>
             <button className="btn btn-primary">Add Interviewee</button>

@@ -10,7 +10,8 @@ router.get(
   async (req: Request, res: Response) => {
     const interviews = await Interview.find({
       hostId: req.currentUser!.id,
-    });
+    }).sort("startTime");
+
     res.send(interviews);
   }
 );
