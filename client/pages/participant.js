@@ -15,7 +15,7 @@ export default function AddInterviewee() {
       email,
       // file,
     },
-    onSuccess: () => Router.push("/interviews"),
+    onSuccess: () => Router.push("/interviews/new"),
     // fileUpload: true,
   });
 
@@ -28,30 +28,31 @@ export default function AddInterviewee() {
   // console.log(file);
 
   return (
-    <form onSubmit={onSubmit} encType="multipart/form-data">
-      <h1>Add Interviewee</h1>
-      <div className="form-group">
-        <label>Name</label>
-        <input
-          value={name}
-          onChange={e => setName(e.target.value)}
-          className="form-control"
-        />
-      </div>
-      <div className="form-group">
-        <label>Email Address</label>
-        <input
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          className="form-control"
-        />
-      </div>
-      {/* <div className="form-group">
+    <div className="d-flex justify-content-center pt-3">
+      <form onSubmit={onSubmit} encType="multipart/form-data">
+        <h1>Add Interviewee</h1>
+        <div className="form-group">
+          <label>Name</label>
+          <input
+            value={name}
+            onChange={e => setName(e.target.value)}
+            className="form-control"
+          />
+        </div>
+        <div className="form-group">
+          <label>Email Address</label>
+          <input
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            className="form-control"
+          />
+        </div>
+        {/* <div className="form-group">
         <label htmlFor="formFile" className="form-label">
           Resume
-        </label>
+          </label>
         <input
-          className="form-control"
+        className="form-control"
           type="file"
           id="formFile"
           name="file"
@@ -59,8 +60,11 @@ export default function AddInterviewee() {
           onChange={e => setFile(e.target.files[0])}
         />
       </div> */}
-      {errors}
-      <button className="btn btn-primary">Add</button>
-    </form>
+        {errors}
+        <div className="d-flex justify-content-center pt-3">
+          <button className="btn btn-primary">Add</button>
+        </div>
+      </form>
+    </div>
   );
 }

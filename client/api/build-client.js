@@ -6,6 +6,8 @@ export default function buildClient({ req }) {
 
     return axios.create({
       baseURL: "http://holdmypotion.tech",
+      // baseURL:
+      //   "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local",
       headers: req.headers,
     });
   } else {
@@ -15,5 +17,3 @@ export default function buildClient({ req }) {
     });
   }
 }
-
-// "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local",

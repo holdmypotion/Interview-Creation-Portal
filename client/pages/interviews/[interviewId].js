@@ -2,6 +2,7 @@ import { DateTimePickerComponent } from "@syncfusion/ej2-react-calendars";
 import { useState } from "react";
 import Router from "next/router";
 import useRequest from "../../hooks/use-request";
+import Link from "next/link";
 
 const InterviewShow = ({ interview, participantsList }) => {
   const [startTime, setStartTime] = useState(new Date(interview.startTime));
@@ -66,12 +67,18 @@ const InterviewShow = ({ interview, participantsList }) => {
         <td>
           {participant.interviews &&
             participant.interviews.map(interview => {
-              const formattedStartTime = new Date(interview.startTime)
+              const formattedStartTime = new Date(interview.startTime);
+              formattedStartTime.setMinutes(
+                formattedStartTime.getMinutes() + 30
+              );
+              formattedStartTime.setMinutes(0, 0, 0);
+              formattedStartTime = formattedStartTime
                 .toString()
                 .substring(0, 21);
-              const formattedEndTime = new Date(interview.endTime)
-                .toString()
-                .substring(0, 21);
+              const formattedEndTime = new Date(interview.endTime);
+              formattedEndTime.setMinutes(formattedEndTime.getMinutes() + 30);
+              formattedEndTime.setMinutes(0, 0, 0);
+              formattedEndTime = formattedEndTime.toString().substring(0, 21);
               return (
                 <div key={interview.startTime}>
                   {formattedStartTime} - {formattedEndTime}
@@ -83,38 +90,67 @@ const InterviewShow = ({ interview, participantsList }) => {
     );
   });
 
+  const formattedStartTime = new Date();
+  formattedStartTime.setMinutes(formattedStartTime.getMinutes() + 30);
+  formattedStartTime.setMinutes(0, 0, 0);
+
   return (
     <form onSubmit={onSubmit}>
-      <h1>Update Interview</h1>
+      <div class="d-flex justify-content-center py-3">
+        <h1>Update Interview</h1>
+      </div>
+      <div class="d-flex justify-content-center pt-3">
+        <h5>Interviewees List</h5>
+      </div>
       <table className="table">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Participant</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Booked Slots</th>
           </tr>
         </thead>
         <tbody>{participantsJSX}</tbody>
       </table>
-      <p>Start Time</p>
-      <DateTimePickerComponent
-        id="datetimepicker"
-        min={new Date()}
-        placeholder="From"
-        format="dd-MMM-yy HH:mm"
-        onChange={e => setStartTime(e.value)}
-        value={new Date(interview.startTime)}
-      />
-      <p>End Time</p>
-      <DateTimePickerComponent
-        id="datetimepicker"
-        min={startTime}
-        placeholder="To"
-        format="dd-MMM-yy HH:mm"
-        onChange={e => setEndTime(e.value)}
-        value={new Date(interview.endTime)}
-      />
+      <div class="d-flex justify-content-center">
+        <Link href="/participant" as="/participant">
+          <a>
+            <button className="btn btn-primary">Add Interviewee</button>
+          </a>
+        </Link>
+      </div>
+      <div className="d-flex justify-content-center pt-5">
+        <div>
+          <div className="pt-3 pd-3">
+            <span>Start Time</span>
+            <DateTimePickerComponent
+              id="datetimepicker"
+              min={formattedStartTime}
+              placeholder="From"
+              format="dd-MMM-yy HH:mm"
+              onChange={e => setStartTime(e.value)}
+              value={new Date(interview.startTime)}
+            />
+          </div>
+          <div className="pt-3 pd-3">
+            <span>End Time</span>
+
+            <DateTimePickerComponent
+              id="datetimepicker"
+              min={startTime}
+              placeholder="To"
+              format="dd-MMM-yy HH:mm"
+              onChange={e => setEndTime(e.value)}
+              value={new Date(interview.endTime)}
+            />
+          </div>
+        </div>
+      </div>
       {errors}
-      <button className="btn btn-primary">Setup</button>
+      <div className="d-flex justify-content-center pt-5">
+        <button className="btn btn-primary">Submit</button>
+      </div>
     </form>
   );
 };
