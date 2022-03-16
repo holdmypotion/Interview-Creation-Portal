@@ -33,18 +33,21 @@ const Home = ({ interviews }) => {
     );
   });
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Start Time</th>
-          <th scope="col">End Time</th>
-          <th scope="col">Participants</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>{interviewList}</tbody>
-    </table>
+    <div className="container">
+      <h1>Upcoming Interviews</h1>
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">End Time</th>
+            <th scope="col">Participants</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>{interviewList}</tbody>
+      </table>
+    </div>
   );
 };
 Home.getInitialProps = async (context, client, currentUser) => {

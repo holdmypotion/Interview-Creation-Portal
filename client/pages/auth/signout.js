@@ -7,7 +7,7 @@ export default function Signout() {
     url: "/api/users/signout",
     method: "get",
     body: {},
-    onSuccess: () => Router.push("/"),
+    onSuccess: () => Router.push("/auth/signup"),
   });
 
   useEffect(() => {
