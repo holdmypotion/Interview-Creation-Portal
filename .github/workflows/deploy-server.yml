@@ -18,3 +18,8 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - run: cd server && docker build -t holdmypotion/icp-server .
       - run: docker push holdmypotion/icp-server
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - run: doctl kubernetes cluster kubeconfig save icp
+      - run: kubectl rollout restart deployment server-depl
