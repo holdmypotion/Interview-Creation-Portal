@@ -11,9 +11,13 @@ spec:
         paths:
           - path: /api/?(.*)
             backend:
-              serviceName: server-srv
-              servicePort: 3000
+              service:
+                name: server-srv
+                port:
+                  number: 3000
           - path: /?(.*)
             backend:
-              serviceName: client-srv
-              servicePort: 3000
+              service:
+                name: client-srv
+                port:
+                  number: 3000
