@@ -1,5 +1,4 @@
 name: deploy-server
-
 on:
   push:
     branches:
