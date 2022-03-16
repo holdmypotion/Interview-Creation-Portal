@@ -5,8 +5,7 @@ export default function buildClient({ req }) {
     // We are on the server
 
     return axios.create({
-      baseURL:
-        "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local",
+      baseURL: "http://holdmypotion.tech",
       headers: req.headers,
     });
   } else {
@@ -16,3 +15,5 @@ export default function buildClient({ req }) {
     });
   }
 }
+
+// "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local",
