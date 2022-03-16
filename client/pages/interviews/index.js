@@ -4,11 +4,11 @@ import { useState } from "react";
 const Home = ({ interviews }) => {
   const [latest, setLatest] = useState(true);
   const interviewList = interviews.map((interview, index) => {
-    const formattedStartTime = new Date(interview.startTime);
+    let formattedStartTime = new Date(interview.startTime);
     formattedStartTime.setMinutes(formattedStartTime.getMinutes() + 30);
     formattedStartTime.setMinutes(0, 0, 0);
     formattedStartTime = formattedStartTime.toString().substring(0, 21);
-    const formattedEndTime = new Date(interview.endTime);
+    let formattedEndTime = new Date(interview.endTime);
     formattedEndTime.setMinutes(formattedEndTime.getMinutes() + 30);
     formattedEndTime.setMinutes(0, 0, 0);
     formattedEndTime = formattedEndTime.toString().substring(0, 21);
@@ -36,6 +36,7 @@ const Home = ({ interviews }) => {
       </tr>
     );
   });
+  console.log(latest);
   return (
     <div className="container">
       <div class="d-flex justify-content-center pt-5">
@@ -46,10 +47,9 @@ const Home = ({ interviews }) => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                value=""
                 id="flexCheckDefault"
                 onChange={() => setLatest(!latest)}
-                checked={true}
+                checked={latest}
               />
               <label className="form-check-label" htmlFor="flexCheckDefault">
                 Only Latest

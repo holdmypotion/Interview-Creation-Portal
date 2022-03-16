@@ -67,7 +67,7 @@ const InterviewShow = ({ interview, participantsList }) => {
         <td>
           {participant.interviews &&
             participant.interviews.map(interview => {
-              const formattedStartTime = new Date(interview.startTime);
+              let formattedStartTime = new Date(interview.startTime);
               formattedStartTime.setMinutes(
                 formattedStartTime.getMinutes() + 30
               );
@@ -75,7 +75,7 @@ const InterviewShow = ({ interview, participantsList }) => {
               formattedStartTime = formattedStartTime
                 .toString()
                 .substring(0, 21);
-              const formattedEndTime = new Date(interview.endTime);
+              let formattedEndTime = new Date(interview.endTime);
               formattedEndTime.setMinutes(formattedEndTime.getMinutes() + 30);
               formattedEndTime.setMinutes(0, 0, 0);
               formattedEndTime = formattedEndTime.toString().substring(0, 21);
