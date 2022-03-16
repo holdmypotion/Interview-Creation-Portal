@@ -23,9 +23,10 @@ app.set("trust proxy", true);
 app.use(cors());
 app.use(express.json());
 app.use(
+  // secure: process.env.NODE_ENV !== "test", // enable HTTPS // ! False for test, True otherwise
   cookieSession({
     signed: false, // disable encryption on cookies
-    secure: process.env.NODE_ENV !== "test", // enable HTTPS // ! False for test, True otherwise
+    secure: false,
   })
 );
 
