@@ -1,13 +1,26 @@
 import axios from "axios";
 import { useState } from "react";
 
-export default ({ url, method, body, onSuccess }) => {
+export default ({ url, method, body, onSuccess, fileUpload = false }) => {
   const [errors, setErrors] = useState(null);
 
   const doRequest = async (props = {}) => {
     try {
       setErrors(null);
-      const response = await axios[method](url, { ...body, ...props });
+      let response;
+      if (fileUpload) {
+        const formData = new FormData();
+        for (let [key, val] of body) {
+          formData.append(key, val);
+        }
+        response = await axios[method](url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } else {
+        response = await axios[method](url, { ...body, ...props });
+      }
 
       if (onSuccess) {
         onSuccess(response.data);

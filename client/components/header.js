@@ -22,12 +22,14 @@ export default ({ currentUser }) => {
 
   return (
     <nav className="navbar navbar-light bg-light">
-      <Link href="/interviews">
-        <a className="navbar-brand">Interview Creation Portal</a>
-      </Link>
+      <div className="container">
+        <Link href="/interviews">
+          <a className="navbar-brand">Interview Creation Portal</a>
+        </Link>
 
-      <div className="d-flex justify-content-end">
-        <ul className="nav d-flex align-items-center">{links}</ul>
+        <div className="d-flex justify-content-end">
+          <ul className="nav d-flex align-items-center">{links}</ul>
+        </div>
       </div>
     </nav>
   );

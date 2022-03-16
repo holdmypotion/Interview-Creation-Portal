@@ -6,6 +6,7 @@ import { NotFoundError } from "../errors/not-found-error";
 import { requireAuth } from "../middlewares/require-auth";
 import { validateRequest } from "../middlewares/validate-request";
 import { Interview } from "../models/Interview";
+import { Participant } from "../models/Participant";
 
 const router = express.Router();
 router.put(
@@ -23,12 +24,12 @@ router.put(
   async (req: Request, res: Response) => {
     let { startTime, endTime, participants } = req.body;
 
-    const interview = await Interview.findById(req.params.id);
-    if (!interview) throw new NotFoundError();
-    if (interview.hostId !== req.currentUser!.id)
+    const currentInterview = await Interview.findById(req.params.id);
+    if (!currentInterview) throw new NotFoundError();
+    if (currentInterview.hostId !== req.currentUser!.id)
       throw new NotAuthorizedError();
 
-    if (!startTime || !endTime || !participants) {
+    if (!startTime && !endTime && !participants) {
       throw new BadRequestError(
         "Please enter startTime, endTime and participants email list properly."
       );
@@ -48,15 +49,44 @@ router.put(
     if (participants.length < 1)
       throw new BadRequestError("Please provide at least 1 participants");
 
-    interview.set({
+    // check if the timings overlap
+    await Promise.all(
+      participants.map(async (email: string) => {
+        const participant = await Participant.findOne({ email }).populate(
+          "interviews"
+        );
+        if (!participant) {
+          throw new NotFoundError();
+        }
+        if (participant.interviews) {
+          participant.interviews.map(interview => {
+            if (currentInterview.id !== interview.id) {
+              if (
+                (startTime < interview.startTime &&
+                  endTime > interview.startTime) ||
+                (startTime < interview.endTime &&
+                  endTime > interview.endTime) ||
+                (startTime > interview.startTime && endTime < interview.endTime)
+              ) {
+                throw new BadRequestError(
+                  `The interview timings overlap for ${participant.email}`
+                );
+              }
+            }
+          });
+        }
+      })
+    );
+
+    currentInterview.set({
       startTime: startTime,
       endTime: endTime,
       participants: participants,
     });
 
-    await interview.save();
+    await currentInterview.save();
 
-    res.send(interview);
+    res.send(currentInterview);
   }
 );
 

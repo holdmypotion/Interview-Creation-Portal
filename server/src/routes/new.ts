@@ -32,17 +32,46 @@ router.post(
     startTime = new Date(startTime);
     endTime = new Date(endTime);
 
-    if (startTime < Date.now())
+    if (startTime < Date.now()) {
       throw new BadRequestError(
-        "Start time can not be before current Time. (Are you a time traveller?)"
+        "Meeting can't be in the past. Start time is before current time"
       );
-    if (endTime < startTime)
+    }
+    if (endTime < startTime) {
       throw new BadRequestError(
-        "Meeting duration can not be negative. endTime is before startTime."
+        "Meeting duration can not be negative. End Time is before Start Time."
       );
+    }
 
-    if (participants.length < 1)
+    if (participants.length < 1) {
       throw new BadRequestError("Please provide at least 1 participants");
+    }
+
+    // check if the timings overlap
+    await Promise.all(
+      participants.map(async (email: string) => {
+        const participant = await Participant.findOne({ email }).populate(
+          "interviews"
+        );
+        if (!participant) {
+          throw new NotFoundError();
+        }
+        if (participant.interviews) {
+          participant.interviews.map(interview => {
+            if (
+              (startTime < interview.startTime &&
+                endTime > interview.startTime) ||
+              (startTime < interview.endTime && endTime > interview.endTime) ||
+              (startTime > interview.startTime && endTime < interview.endTime)
+            ) {
+              throw new BadRequestError(
+                `The interview timings overlap for ${participant.email}`
+              );
+            }
+          });
+        }
+      })
+    );
 
     const interview = Interview.build({
       hostId: req.currentUser!.id,
@@ -67,17 +96,17 @@ router.post(
     });
 
     // sending email to participants
-    // for (let p of participants) {
-    //   console.log(`Sending mail to ${p.email}`);
-    //   sendEmail({
-    //     email: p.email,
-    //     subject: "Interviewbit Engineering Role Interview",
-    //     message: `Timing: ${moment(startTime).format("hh:mm A")} - ${moment(
-    //       endTime
-    //     ).format("hh:mm A")} on ${moment(startTime).format("DD-MM-YYYY")}`,
-    //   });
-    //   console.log("mail sent!");
-    // }
+    for (let email of participants) {
+      console.log(`Sending mail to ${email}`);
+      sendEmail({
+        email: email,
+        subject: "Interviewbit Engineering Role Interview",
+        message: `Timing: ${moment(startTime).format("hh:mm A")} - ${moment(
+          endTime
+        ).format("hh:mm A")} on ${moment(startTime).format("DD-MM-YYYY")}`,
+      });
+      console.log("mail sent!");
+    }
 
     res.status(201).send(interview);
   }

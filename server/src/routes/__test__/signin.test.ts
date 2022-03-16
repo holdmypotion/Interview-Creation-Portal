@@ -3,7 +3,7 @@ import { app } from "../../app";
 
 it("fails when an email that does not exist is supplied", async () => {
   await request(app)
-    .post("/api/signin")
+    .post("/api/users/signin")
     .send({
       email: "test@test.com",
       password: "password",
@@ -13,7 +13,7 @@ it("fails when an email that does not exist is supplied", async () => {
 
 it("fails when an incorrect password is supplied", async () => {
   await request(app)
-    .post("/api/signup")
+    .post("/api/users/signup")
     .send({
       name: "test",
       email: "test@test.com",
@@ -22,7 +22,7 @@ it("fails when an incorrect password is supplied", async () => {
     .expect(201);
 
   await request(app)
-    .post("/api/signin")
+    .post("/api/users/signin")
     .send({
       email: "test@test.com",
       password: "aslkdfjalskdfj",
@@ -32,7 +32,7 @@ it("fails when an incorrect password is supplied", async () => {
 
 it("responds with a cookie when given valid credentials", async () => {
   await request(app)
-    .post("/api/signup")
+    .post("/api/users/signup")
     .send({
       name: "test",
       email: "test@test.com",
@@ -41,7 +41,7 @@ it("responds with a cookie when given valid credentials", async () => {
     .expect(201);
 
   const response = await request(app)
-    .post("/api/signin")
+    .post("/api/users/signin")
     .send({
       email: "test@test.com",
       password: "password",
