@@ -4,15 +4,13 @@ import { useState } from "react";
 const Home = ({ interviews }) => {
   const [latest, setLatest] = useState(true);
   const interviewList = interviews.map((interview, index) => {
-    let formattedStartTime = new Date(interview.startTime);
-    formattedStartTime.setMinutes(formattedStartTime.getMinutes() + 30);
-    formattedStartTime.setMinutes(0, 0, 0);
-    formattedStartTime = formattedStartTime.toString().substring(0, 21);
-    let formattedEndTime = new Date(interview.endTime);
-    formattedEndTime.setMinutes(formattedEndTime.getMinutes() + 30);
-    formattedEndTime.setMinutes(0, 0, 0);
-    formattedEndTime = formattedEndTime.toString().substring(0, 21);
-    if (latest && new Date() > new Date(interview.endTime)) return;
+    const formattedStartTime = new Date(interview.startTime)
+      .toString()
+      .substring(0, 21);
+    const formattedEndTime = new Date(interview.endTime)
+      .toString()
+      .substring(0, 21);
+    if (latest && new Date() > new Date(interview.startTime)) return;
     return (
       <tr key={interview.id}>
         <th>{index + 1}</th>
@@ -36,13 +34,12 @@ const Home = ({ interviews }) => {
       </tr>
     );
   });
-  console.log(latest);
   return (
     <div className="container">
-      <div class="d-flex justify-content-center pt-5">
+      <div className="d-flex justify-content-center pt-5">
         <div>
           <h1>Upcoming Interviews</h1>
-          <div class="d-flex justify-content-center">
+          <div className="d-flex justify-content-center">
             <div className="form-check">
               <input
                 className="form-check-input"
@@ -71,7 +68,7 @@ const Home = ({ interviews }) => {
         <tbody>{interviewList}</tbody>
       </table>
       {interviews.length == 0 && (
-        <div class="d-flex justify-content-center pt-3">
+        <div className="d-flex justify-content-center pt-3">
           <h5>you might want to setup some interviews first..</h5>
         </div>
       )}

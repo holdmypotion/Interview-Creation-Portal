@@ -31,7 +31,6 @@ router.post(
     }
     startTime = new Date(startTime);
     endTime = new Date(endTime);
-
     if (startTime < Date.now()) {
       throw new BadRequestError(
         "Meeting can't be in the past. Start time is before current time"
