@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
+import moment from "moment";
 import { BadRequestError } from "../errors/bad-request-error";
 import { NotAuthorizedError } from "../errors/not-authorized-error";
 import { NotFoundError } from "../errors/not-found-error";
@@ -7,6 +8,7 @@ import { requireAuth } from "../middlewares/require-auth";
 import { validateRequest } from "../middlewares/validate-request";
 import { Interview } from "../models/Interview";
 import { Participant } from "../models/Participant";
+import sendEmail from "../utils/sendEmails";
 
 const router = express.Router();
 router.put(
@@ -85,6 +87,19 @@ router.put(
     });
 
     await currentInterview.save();
+
+    // sending email to participants
+    for (let email of participants) {
+      console.log(`Sending mail to ${email}`);
+      sendEmail({
+        email: email,
+        subject: "Interviewbit Engineering Role Interview",
+        message: `Timing: ${moment(startTime).format("hh:mm A")} - ${moment(
+          endTime
+        ).format("hh:mm A")} on ${moment(startTime).format("DD-MM-YYYY")}`,
+      });
+      console.log("mail sent!");
+    }
 
     res.send(currentInterview);
   }

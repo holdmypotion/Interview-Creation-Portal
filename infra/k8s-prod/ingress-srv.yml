@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-    - host: "www.holdmypotion.tech"
+    - host: "holdmypotion.tech"
       http:
         paths:
           - path: /api
@@ -30,7 +30,7 @@ spec:
 # metadata:
 #   annotations:
 #     service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: 'true'
-#     service.beta.kubernetes.io/do-loadbalancer-hostname: 'www.holdmypotion.tech'
+#     service.beta.kubernetes.io/do-loadbalancer-hostname: 'holdmypotion.tech'
 #   labels:
 #     helm.sh/chart: ingress-nginx-2.0.3
 #     app.kubernetes.io/name: ingress-nginx
