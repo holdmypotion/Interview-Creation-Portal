@@ -56,6 +56,10 @@ Digital Ocean - Kubernetes Cluster
 
 ![Internal Public | Private EndPoints](./assets/inter.png "Internal Public | Private EndPointsPrivate Endpoint")
 
+## Database Schema
+
+![Database Schema](./assets/dbschema.png "Database Schema")
+
 ## Running Development Server
 
 1. [Setup Docker with Kubernetes](https://www.docker.com/products/docker-desktop)
