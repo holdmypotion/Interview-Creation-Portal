@@ -9,12 +9,12 @@ Create a simple app where admins can create interviews by selecting participants
 ## Basic Requirements
 
 1. An interview creation page where the admin can create an interview by selecting participants, start time and end time. Backend should throw error with proper error message if:
-    1. Any of the participants is not available during the scheduled time (i.e, has another interview scheduled)
-    2. No of participants is less than 2
+   1. Any of the participants is not available during the scheduled time (i.e, has another interview scheduled)
+   2. No of participants is less than 2
 2. An interviews list page where admin can see all the upcoming interviews.
 3. An interview edit page where admin can edit the created interview with the same validations as on the creation page.
 
-*Note: No need to add a page to create Users/Participants. Create them directly in the database*
+_Note: No need to add a page to create Users/Participants. Create them directly in the database_
 
 ## Good to haves
 
@@ -44,11 +44,33 @@ Create a simple app where admins can create interviews by selecting participants
 7. Jest
 
 ## Hosting Provider
+
 Digital Ocean - Kubernetes Cluster
 
-## Setup
+## Function Requirements
 
-Install dependencies with `npm install`.
+- An interviewer creates an interview including themselves and at least one other participant.
+
+- An interviewer can create any number of interviewees and setup any number of interviews for each and all participants
+
+- An interview can have any number of participants (including a single interviewer and multiple interviewees),
+  start time and end time (in military time)
+
+- After selecting all the participants, the interviewer sets the time slot for the interview
+  (based on the intersection of available time for all the participants)
+
+- An interviewer can view all the upcoming interviews
+
+- An interviewer can edit an interview (similar interface as creation page)
+
+- On successful interview creation, all participants get an invitation email.
+
+## EndPoints
+
+![Public Endpoint](./assets/publicend.png "Public EndPoint")
+![Private Endpoint](./assets/privateend.png "Private EndPoint")
+![Internal Public Endpoint](./assets/internalpublic.png "Internal Public Endpoint")
+![Internal Private Endpoint](./assets/internalprivate.png "Internal Private Endpoint")
 
 ## Running Development Server
 
@@ -56,7 +78,6 @@ Install dependencies with `npm install`.
 2. Install OS Specific [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/deploy/)
 3. Install OS Specific [Skaffold](https://skaffold.dev/docs/install/)
 4. Run `skaffold dev`
-
 
 ## Running Jest Test Framework
 
