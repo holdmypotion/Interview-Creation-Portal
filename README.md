@@ -67,10 +67,11 @@ Digital Ocean - Kubernetes Cluster
 
 ## EndPoints
 
-![Public Endpoint](./assets/publicend.png "Public EndPoint")
-![Private Endpoint](./assets/privateend.png "Private EndPoint")
-![Internal Public Endpoint](./assets/internalpublic.png "Internal Public Endpoint")
-![Internal Private Endpoint](./assets/internalprivate.png "Internal Private Endpoint")
+![Public | Private EndPoints](./assets/exter.png "Public | Private EndPoints")
+
+#
+
+![Internal Public | Private EndPoints](./assets/inter.png "Internal Public | Private EndPointsPrivate Endpoint")
 
 ## Running Development Server
 
