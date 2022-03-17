@@ -47,7 +47,7 @@ _Note: No need to add a page to create Users/Participants. Create them directly 
 
 Digital Ocean - Kubernetes Cluster
 
-## Function Requirements
+## Functional Requirements
 
 - An interviewer creates an interview including themselves and at least one other participant.
 
