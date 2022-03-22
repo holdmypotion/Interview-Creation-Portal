@@ -16,9 +16,10 @@ import { listParticipantsRouter } from "./routes/list-participants";
 import { currentUserRouter } from "./routes/current-user";
 import { signoutRouter } from "./routes/signout";
 import { showInterviewRouter } from "./routes/show";
+import { cloudinaryConfig } from "./utils/cloudinary";
 
 const app = express();
-app.set("trust proxy", true);
+app.set("trust proxy", true); // letting express know that it sits behind a proxy
 
 app.use(cors());
 app.use(express.json());
@@ -29,7 +30,9 @@ app.use(
     secure: false,
   })
 );
-
+app.use(cloudinaryConfig);
+// app.use(express.urlencoded({ extended: false }));
+// app.use('/api/static', express.static('public'));
 app.use(currentUser);
 app.use(currentUserRouter);
 app.use(indexRouter);

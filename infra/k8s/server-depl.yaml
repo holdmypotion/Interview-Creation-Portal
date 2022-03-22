@@ -17,7 +17,7 @@ spec:
           image: holdmypotion/icp-server
           env:
             - name: MONGO_URI
-              value: 'mongodb://server-mongo-srv:27017/server'
+              value: "mongodb://server-mongo-srv:27017/server"
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -33,6 +33,15 @@ spec:
                 secretKeyRef:
                   name: user-pass
                   key: USER_PASS
+            - name: CLOUDINARY_NAME
+              value: "dumoklgts"
+            - name: CLOUDINARY_KEY
+              value: "289446999381916"
+            - name: CLOUDINARY_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: cloudinary-secret
+                  key: CLOUDINARY_SECRET
 ---
 apiVersion: v1
 kind: Service

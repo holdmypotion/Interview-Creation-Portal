@@ -17,10 +17,10 @@ export default function AddInterviewee({ currentUser }) {
     body: {
       name,
       email,
-      // file,
+      file,
     },
     onSuccess: () => Router.push("/interviews/new"),
-    // fileUpload: true,
+    fileUpload: true,
   });
 
   const onSubmit = async event => {
@@ -29,7 +29,7 @@ export default function AddInterviewee({ currentUser }) {
     await doRequest();
   };
 
-  // console.log(file);
+  console.log(file);
 
   return (
     <>
@@ -53,7 +53,7 @@ export default function AddInterviewee({ currentUser }) {
                 className="form-control"
               />
             </div>
-            {/* <div className="form-group">
+            <div className="form-group">
           <label htmlFor="formFile" className="form-label">
             Resume
             </label>
@@ -65,7 +65,7 @@ export default function AddInterviewee({ currentUser }) {
             placeholder="Select file"
             onChange={e => setFile(e.target.files[0])}
           />
-        </div> */}
+        </div>
             {errors}
             <div className="d-flex justify-content-center pt-3">
               <button className="btn btn-primary">Add</button>
