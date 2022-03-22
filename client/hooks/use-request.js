@@ -10,8 +10,8 @@ export default ({ url, method, body, onSuccess, fileUpload = false }) => {
       let response;
       if (fileUpload) {
         const formData = new FormData();
-        for (let [key, val] of body) {
-          formData.append(key, val);
+        for (let key in body) {
+          formData.append(key, body[key]);
         }
         response = await axios[method](url, formData, {
           headers: {
