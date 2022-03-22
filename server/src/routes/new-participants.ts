@@ -5,7 +5,6 @@ import { requireAuth } from "../middlewares/require-auth";
 import { upload } from "../middlewares/upload-file";
 import { validateRequest } from "../middlewares/validate-request";
 import { Participant } from "../models/Participant";
-import { uploader } from "../utils/cloudinary";
 
 const router = express.Router();
 
@@ -28,19 +27,9 @@ router.post(
       throw new BadRequestError("Email in use");
     }
 
-    try {
-      if (req.file) {
-        console.log(req.file);
-        const result = await uploader.upload(req.file?.path);
-        console.log(result);
-      }
-    } catch (err) {
-      console.log("I an erro", err);
-    }
-
     const participant = Participant.build({ name, email });
     await participant.save();
-    res.send(participant);
+    res.send(req.file);
   }
 );
 
